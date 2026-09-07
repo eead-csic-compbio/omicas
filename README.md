@@ -26,31 +26,37 @@ Incluye dos tareas, una en el terminal y otra más sencilla en el navegador Web.
 
 Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid15368[organism:exp]%20AND%20biomol_mrna[prop] 
 <!--Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid4530[organism:exp]%20AND%20biomol_mrna[prop]-->
-verás que hay más de 200k secuencias de mensajeros (mRNA) conocidas de la gramínea **Brachypodium distachyon**, que se pueden exportar en formato FASTA.
+verás que hay más de 260k secuencias de mensajeros (mRNA) conocidas de la gramínea **Brachypodium distachyon**, que se pueden exportar en formato FASTA.
 Como una parte serán redundantes podemos quedarnos con las secuencias únicas representativas con ayuda
 de herramientas como [MMSeq2](https://www.nature.com/articles/nbt.3988), con un comando parecido a este: 
 
     $ mmseqs easy-linclust sequence.fasta --threads 6 --min-seq-id 0.98 rice.mRNA.nr.faa ./
     $ mv rice.mRNA.nr.faa_rep_seq.fasta rice.mRNA.nr.fasta
 
-Una versión reducida del conjunto no redundante al 98% está disponible en el fichero [data/Bdistachyon.mRNA.nr.fasta.gz](./data/Bdistachyon.mRNA.nr.fasta.gz).
+Las secuencias no redundantes al 98% de identidad están disponible en el fichero [data/Bdistachyon.mRNA.nr.fasta.gz](./data/Bdistachyon.mRNA.nr.fasta.gz).
 
 #### 1.3 Anotación con software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0)
 
     $ eviann.sh -t 2 -g softmasked.fa -e Bdistachyon.mRNA.nr.fasta.gz
 
+Como este paso llevará un rato lo mejor será saltar de momento a la tarea 2.
+
 #### 1.4 Comparemos las anotaciones entre genomas distintos
 
+
+
 	
-### 2. Análisis de pangenes de floración en variedades de cebada [Web]
+### 2. Análisis de pangenes en variedades de cebada [Web]
 
 En esta tarea usaremos una aplicación Web para mapear secuencias de cebada.
-En vez de 
- sobre un pangenoma
+En vez de localizar estas secuencias sobre un genoma de referencia representativo de la especie, MorexV3 en este caso,
+vamos a localizarlas sobre un pangenoma modelado como grafo.
 Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v1) en su modo de análisis de grafos.
 
-#### 2.1 Selección y descarga de un genoma de arroz en formato FASTA 
+#### 2.1 Selección y copia de una secuencia en formato FASTA 
 
-https://barleymap.eead.csic.es/barleymap/graph/
+#### 2.2 Buscar esa secuencia en https://barleymap.eead.csic.es/barleymap/graph/ contra el grafo `Pan20-mmap-pro`
+
+#### 2.3 Compara tus resultados con los compañeros
 
 
