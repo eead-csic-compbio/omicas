@@ -53,10 +53,12 @@ En vez de localizar estas secuencias sobre un genoma de referencia representativ
 vamos a localizarlas sobre un pangenoma modelado como grafo.
 Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v1) en su modo de análisis de grafos.
 
-#### 2.1 Selección y copia de una secuencia en formato FASTA 
+#### 2.1 Selección y copia de una o más secuencias en formato FASTA 
 
-#### 2.2 Buscar esa secuencia en https://barleymap.eead.csic.es/barleymap/graph/ contra el grafo `Pan20-mmap-pro`
+#### 2.2 Mapea las secuencias en https://barleymap.eead.csic.es/barleymap/graph/ contra el grafo `Pan20-mmap-pro`
 
 #### 2.3 Compara tus resultados con los compañeros
+
+En cuántos genomas las encuentras, en qué cromosomas, en qué orientación?
 
 
