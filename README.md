@@ -3,7 +3,7 @@
 Sesión práctica de 2h sobre "Genómica y aplicaciones de la Pangenómica de Plantas" dentro del 
 [Máster en Biología Molecular y Celular](https://estudios.unizar.es) de la Universidad de Zaragoza.
 
-| grupo | URL de ensamblaje |
+| grupo | URL de Ensembl |
 |-----|------|
 |Indica group|[GCA_001618785.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_Indica_Group/GCA_001618785.1)|
 |Indica group|[GCA_001618795.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_Indica_Group/GCA_001618795.1)|
