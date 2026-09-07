@@ -4,9 +4,9 @@ Sesión práctica de 2h dentro del
 [Máster en Biología Molecular y Celular](https://estudios.unizar.es) de la Universidad de Zaragoza.
 Incluye dos tareas, una en el terminal y otra más sencilla en el navegador Web.
 
-### 1. Anotación de genes en genomas de la misma especie [terminal]
+### 1. Anotación de genes en múltiples genomas de la misma especie [terminal]
 
-1.1 Selección y descarga de un genoma de arroz en formato FASTA (*soft-masked*)
+#### 1.1 Selección y descarga de un genoma de arroz en formato FASTA (*soft-masked*)
 
 | grupo | URL de Ensembl |
 |-----|------|
@@ -22,25 +22,35 @@ Incluye dos tareas, una en el terminal y otra más sencilla en el navegador Web.
 |Japonica group|[GCA_001433935.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_Japonica_Group/GCA_001433935.1)|
 |aromatic subgroup|[GCA_009831255.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_aromatic_subgroup/GCA_009831255.1)|
 
-1.2 Obtención de evidencia transcripcional de las bases de datos INSDC  
+#### 1.2 Obtención de evidencia transcripcional de bases de datos
 
-Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid4530[organism:exp]%20AND%20biomol_mrna[prop] verás 
-que hay más de 1M de secuencias de mensajeros (mRNA) conocidas de arroz, que se pueden exportar en formato FASTA.
+Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid15368[organism:exp]%20AND%20biomol_mrna[prop] 
+<!--Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid4530[organism:exp]%20AND%20biomol_mrna[prop]-->
+verás que hay más de 200k secuencias de mensajeros (mRNA) conocidas de la gramínea **Brachypodium distachyon**, que se pueden exportar en formato FASTA.
 Como una parte serán redundantes podemos quedarnos con las secuencias únicas representativas con ayuda
 de herramientas como [MMSeq2](https://www.nature.com/articles/nbt.3988), con un comando parecido a este: 
 
     $ mmseqs easy-linclust sequence.fasta --threads 6 --min-seq-id 0.98 rice.mRNA.nr.faa ./
     $ mv rice.mRNA.nr.faa_rep_seq.fasta rice.mRNA.nr.fasta
 
-Una versión reducida del conjunto no redundante al 98% está disponible en el fichero [./data/rice.mRNA.nr.fasta.gz](data/rice.mRNA.nr.fasta.gz).
+Una versión reducida del conjunto no redundante al 98% está disponible en el fichero [data/Bdistachyon.mRNA.nr.fasta.gz](./data/Bdistachyon.mRNA.nr.fasta.gz).
 
-1.3 Anotación con software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0)
+#### 1.3 Anotación con software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0)
 
-    $ eviann.sh -t 2 -g softmasked.fa -e rice.mRNA.nr.fasta.gz
+    $ eviann.sh -t 2 -g softmasked.fa -e Bdistachyon.mRNA.nr.fasta.gz
+
+#### 1.4 Comparemos las anotaciones entre genomas distintos
 
 	
 ### 2. Análisis de pangenes de floración en variedades de cebada [Web]
 
-ttps://barleymap.eead.csic.es/barleymap/graph/
+En esta tarea usaremos una aplicación Web para mapear secuencias de cebada.
+En vez de 
+ sobre un pangenoma
+Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v1) en su modo de análisis de grafos.
+
+#### 2.1 Selección y descarga de un genoma de arroz en formato FASTA 
+
+https://barleymap.eead.csic.es/barleymap/graph/
 
 
