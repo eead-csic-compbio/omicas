@@ -22,29 +22,65 @@ Incluye dos tareas, una en el terminal y otra más sencilla en el navegador Web.
 |Japonica group|[GCA_001433935.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_Japonica_Group/GCA_001433935.1)|
 |aromatic subgroup|[GCA_009831255.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_aromatic_subgroup/GCA_009831255.1)|
 
+Para hacer la práctica en un PC limitado podemos por ejemplo quedarnos solamente con el cromosoma 12 con ayuda de un 
+[one-liner](https://github.com/eead-csic-compbio/scripting_linux_shell/blob/master/session4.md):
+
+    $ zcat softmasked.fa.gz | perl -lne 'if(/^>12/){$ok=1; print} elsif($ok){ last if(/^>/); print }' > softmasked.chr12.fa
+
 #### 1.2 Obtención de evidencia transcripcional de bases de datos
 
-Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid15368[organism:exp]%20AND%20biomol_mrna[prop] 
-<!--Si visitas https://www.ncbi.nlm.nih.gov/nuccore/?term=txid4530[organism:exp]%20AND%20biomol_mrna[prop]-->
-verás que hay más de 260k secuencias de mensajeros (mRNA) conocidas de la gramínea **Brachypodium distachyon**, que se pueden exportar en formato FASTA.
-Como una parte serán redundantes podemos quedarnos con las secuencias únicas representativas con ayuda
-de herramientas como [MMSeq2](https://www.nature.com/articles/nbt.3988), con un comando parecido a este: 
+En recursos como [RAP-DB](https://rapdb.dna.naro.go.jp/download/irgsp1.html) 
+puedes obtener secuencias de tránscritos de arroz (CDS + UTRs + intrones) en formato FASTA. 
+Estas secuencias sirven de evidencia física de regiones del genoma de arroz que se transcriben.
+Por comodidad puedes descargar los tránscritos que se han adscrito al chr12 de arroz de 
+[data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz](./data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz).
 
-    $ mmseqs easy-linclust sequence.fasta --threads 6 --min-seq-id 0.98 rice.mRNA.nr.faa ./
-    $ mv rice.mRNA.nr.faa_rep_seq.fasta rice.mRNA.nr.fasta
+#### 1.3 Obtención de evidencia proteómica de bases de datos
 
-Las secuencias no redundantes al 98% de identidad están disponible en el fichero [data/Bdistachyon.mRNA.nr.fasta.gz](./data/Bdistachyon.mRNA.nr.fasta.gz).
+Otra fuente de evidencia útil son las secuencias de aminoácidos de proteínas de arroz conocidas,
+que se guardan en un recurso central como es [UniProt](https://www.uniprot.org). 
+Ahora te pido que descargues las secuencias proteicas de arroz de
+[data/uniprot_sprot.Osativa.fasta.gz](./data/uniprot_sprot.Osativa.fasta.gz).
 
-#### 1.3 Anotación con software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0)
+#### 1.4 Anotación basada en evidencia experimental
 
-    $ eviann.sh -t 2 -g softmasked.fa -e Bdistachyon.mRNA.nr.fasta.gz
+Con ayuda del software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0) 
+en este paso vamos a anotar el genoma que hemos descargado, o su chr12, es decir,
+vamos a averiguar en qué segmentos encontramos genes que codifican proteínas. 
+Antes debemos descomprimir los ficheros de secuencias con extensión `.gz`:
+
+    $ gunzip IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz uniprot_sprot.Osativa.fasta.gz
+
+    $ eviann.sh -t 2 -g softmasked.chr12.fa -e IRGSP-1.0_gene_2026-02-05.chr12.fasta -s uniprot_sprot.Osativa.fasta
 
 Como este paso llevará un rato lo mejor será saltar de momento a la tarea 2.
 
-#### 1.4 Comparemos las anotaciones entre genomas distintos
+#### 1.5 Comparemos las anotaciones entre genomas distintos
 
+Cuando haya terminado el paso anterior puedes revisar los resultados.
+Por ejemplo, el fichero `softmasked.chr12.fa.gff` debería ser similar al que tienes disponible en
+[data/softmasked.chr12.fa.gff.gz](./data/softmasked.chr12.fa.gff.gz), cuyas primeras líneas son:
 
+    12      EviAnn  gene    25909   37142   .       -       .       ID=LOC_00000264;geneID=LOC_00000264;gene_biotype=protein_coding
+    12      EviAnn  mRNA    25909   37142   .       -       .       ID=LOC_00000264-mRNA-1;Parent=LOC_00000264;evidence_protein_id=sp|Q8GU83|AB41G_ORYSJ:ABC_transporter_G_family_member_41_OS_Oryza_sativa_subsp._japonica_OX_39947_GN_ABCG41_PE_3_SV_1;evidence_transcript_id=sp|Q8GU83|AB41G_ORYSJ:12:31525.5;start_codon=ATG;stop_codon=TAA;evidence=protein_only;num_exons=23;geneID=LOC_00000264;gene_biotype=protein_coding
+    12      EviAnn  exon    25909   26178   .       -       .       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:exon:1
+    12      EviAnn  exon    26284   26405   .       -       .       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:exon:2
+    12      EviAnn  exon    27722   27875   .       -       .       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:exon:3
+    12      EviAnn  exon    27993   28164   .       -       .       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:exon:4
+    12      EviAnn  exon    28299   28532   .       -       .       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:exon:5
+    ...
+    12      EviAnn  CDS     25909   26178   .       -       0       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:CDS:1
+    12      EviAnn  CDS     26284   26405   .       -       2       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:CDS:2
+    12      EviAnn  CDS     27722   27875   .       -       0       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:CDS:3
+    12      EviAnn  CDS     27993   28164   .       -       1       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:CDS:4
+    12      EviAnn  CDS     28299   28532   .       -       1       Parent=LOC_00000264-mRNA-1;ID=LOC_00000264-mRNA-1:CDS:5
+    ...
+    12      EviAnn  gene    42617   45355   .       -       .       ID=LOC_00000265;geneID=LOC_00000265;gene_biotype=protein_coding
 
+Podemos revisar y contar algunos tipos de genes con más *one-liners*, como por ejemplo `transporter`, `Disease_resistance` o `transcription_factor`:
+
+    $ grep transporter softmasked.chr12.fa.gff
+    $ grep -c grep transporter softmasked.chr12.fa.gff
 	
 ### 2. Análisis de pangenes en variedades de cebada [Web]
 
