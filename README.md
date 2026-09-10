@@ -8,6 +8,8 @@ Incluye dos tareas, una en el terminal y otra más sencilla en el navegador Web.
 
 Para ejecutar las siguientes operaciones tendrás que abrir un terminal:
 
+    # esto es un comentario, esta documentación la probamos ftramull y yo
+
     # 0.1. Descarga el instalador oficial para Linux de 64 bits y hazlo ejecutable
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     chmod +x Miniconda3-latest-Linux-x86_64.sh
