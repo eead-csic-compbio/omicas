@@ -4,6 +4,49 @@ Sesión práctica de 2h dentro del
 [Máster en Biología Molecular y Celular](https://estudios.unizar.es) de la Universidad de Zaragoza.
 Incluye dos tareas, una en el terminal y otra más sencilla en el navegador Web.
 
+### 0. Instalación de software EviAnn vía conda
+
+Para ejecutar las siguientes operaciones tendrás que abrir un terminal:
+
+    # 0.1. Descarga el instalador oficial para Linux de 64 bits y hazlo ejecutable
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    chmod +x Miniconda3-latest-Linux-x86_64.sh
+
+    # 0.2. Ejecuta la instalación automatizada (-b acepta términos y -u sobrescribe instalaciones previas)
+    ./Miniconda3-latest-Linux-x86_64.sh -b -u
+
+    # 0.3. Inicialización del intérprete de comandos (Bash),
+    # fuerza el registro del ejecutable de Conda dentro del archivo de configuración del sistema 
+    # (.bashrc) para que la terminal reconozca el comando de forma global.
+    # Al completar este paso, aparecerá el prefijo (base) al inicio de la línea de comandos
+    ~/miniconda3/bin/conda init bash
+    source ~/.bashrc
+
+    # 0.4 Aceptación de los términos de servicio
+    conda tos accept
+
+    # 0.5: Configuración estricta de canales (Channels) de Bioconda,
+    # agrega los repositorios comunitarios de bioinformática; el orden ayuda a evitar conflictos de versiones
+    conda config --add channels defaults
+    conda config --add channels bioconda
+    conda config --add channels conda-forge
+    conda config --set channel_priority strict
+
+    # 0.6: Creación y activación de un entorno aislado con python 3.10 que no interfiera con el SO nativo,
+    # al terminar el prefijo de tu consola mutará de (base) a (eviann_env)
+    conda create -n eviann_env python=3.10 -y
+    conda activate eviann_env
+
+    # 0.7: Instalación de EviAnn y validación final
+    conda install eviann -y
+    eviann.sh --help
+
+    # si necesitas salir de este entorno
+    conda deactivate
+
+    # si necesitas usar EviAnn en otra ocasión
+    conda activate eviann_env
+
 ### 1. Anotación de genes en múltiples genomas de la misma especie [terminal]
 
 #### 1.1 Selección y descarga de un genoma de arroz en formato FASTA (*soft-masked*)
