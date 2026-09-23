@@ -1,45 +1,45 @@
-## TecnologÌas ”micas: GenÛmica y aplicaciones de la Pangen√≥mica de Plantas
+## TecnologÌas ”micas: GenÛmica y aplicaciones de la PangenÛmica de Plantas
 
-Sesi√≥n pr√°ctica de 2h dentro del 
-[M√°ster en Biolog√≠a Molecular y Celular](https://estudios.unizar.es) de la Universidad de Zaragoza.
-Incluye dos tareas, una en el terminal y otra m√°s sencilla en el navegador Web.
+SesiÛn pr·ctica de 2h dentro del 
+[M·ster en BiologÌa Molecular y Celular](https://estudios.unizar.es) de la Universidad de Zaragoza.
+Incluye dos tareas, una en el terminal y otra m·s sencilla en el navegador Web.
 
-### 0. Instalaci√≥n de software EviAnn v√≠a conda
+### 0. InstalaciÛn de software EviAnn con conda
 
-Para ejecutar las siguientes operaciones tendr√°s que abrir un terminal:
+Para ejecutar las siguientes operaciones tendr·s que abrir un terminal:
 
-    # esto es un comentario, esta documentaci√≥n la probamos ftramull y yo
+    # esto es un comentario, esta documentaciÛn la probamos ftramull y yo
 
     # 0.1. Descarga el instalador oficial para Linux de 64 bits y hazlo ejecutable
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     chmod +x Miniconda3-latest-Linux-x86_64.sh
 
-    # 0.2. Ejecuta la instalaci√≥n automatizada (-b acepta t√©rminos y -u sobrescribe instalaciones previas)
+    # 0.2. Ejecuta la instalaciÛn automatizada (-b acepta tÈrminos y -u sobrescribe instalaciones previas)
     ./Miniconda3-latest-Linux-x86_64.sh -b -u
 
-    # 0.3. Inicializaci√≥n del int√©rprete de comandos (Bash),
-    # fuerza el registro del ejecutable de Conda dentro del archivo de configuraci√≥n del sistema 
+    # 0.3. Reinicio del intÈrprete de comandos (Bash),
+    # fuerza el registro del ejecutable de Conda dentro del archivo de configuraciÛn del sistema 
     # (.bashrc) para que la terminal reconozca el comando de forma global.
-    # Al completar este paso, aparecer√° el prefijo (base) al inicio de la l√≠nea de comandos
+    # Al completar este paso, aparecer· el prefijo (base) al inicio de la lÌnea de comandos
     ~/miniconda3/bin/conda init bash
     source ~/.bashrc
 
-    # 0.4 Aceptaci√≥n de los t√©rminos de servicio
+    # 0.4 AceptaciÛn de los tÈrminos de servicio
     conda tos accept
 
-    # 0.5: Configuraci√≥n estricta de canales (Channels) de Bioconda,
-    # agrega los repositorios comunitarios de bioinform√°tica; el orden ayuda a evitar conflictos de versiones
+    # 0.5: ConfiguraciÛn estricta de canales,
+    # agrega los repositorios comunitarios de bioinform·tica; el orden ayuda a evitar conflictos de versiones
     conda config --add channels defaults
     conda config --add channels bioconda
     conda config --add channels conda-forge
     conda config --set channel_priority strict
 
-    # 0.6: Creaci√≥n y activaci√≥n de un entorno aislado con python 3.10 que no interfiera con el SO nativo,
+    # 0.6: Crea y activa un entorno aislado con python 3.10 que no interfiera con el SO nativo,
     # al terminar el prefijo de tu consola mutar√° de (base) a (eviann_env)
     conda create -n eviann_env python=3.10 -y
     conda activate eviann_env
 
-    # 0.7: Instalaci√≥n de EviAnn y validaci√≥n final
+    # 0.7: Instala EviAnn y validaciÛn final
     conda install eviann -y
     eviann.sh --help
 
@@ -49,9 +49,9 @@ Para ejecutar las siguientes operaciones tendr√°s que abrir un terminal:
     # si necesitas usar EviAnn en otra ocasi√≥n
     conda activate eviann_env
 
-### 1. Anotaci√≥n de genes en m√∫ltiples genomas de la misma especie [terminal]
+### 1. AnotaciÛn de genes en m˙ltiples genomas de la misma especie [terminal]
 
-#### 1.1 Selecci√≥n y descarga de un genoma de arroz en formato FASTA (*soft-masked*)
+#### 1.1 SelecciÛn y descarga de un genoma de arroz en formato FASTA (*soft-masked*)
 
 | grupo | URL de Ensembl |
 |-----|------|
@@ -67,25 +67,25 @@ Para ejecutar las siguientes operaciones tendr√°s que abrir un terminal:
 |Japonica group|[GCA_001433935.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_Japonica_Group/GCA_001433935.1)|
 |aromatic subgroup|[GCA_009831255.1](https://ftp.ebi.ac.uk/pub/ensemblorganisms/Oryza_sativa_aromatic_subgroup/GCA_009831255.1)|
 
-Para hacer la pr√°ctica en un PC limitado podemos por ejemplo quedarnos solamente con el cromosoma 12 con ayuda de un 
+Para hacer la pr·ctica en un PC limitado podemos por ejemplo quedarnos solamente con el cromosoma 12 con ayuda de un 
 [one-liner](https://github.com/eead-csic-compbio/scripting_linux_shell/blob/master/session4.md):
 
     $ zcat softmasked.fa.gz | perl -lne 'if(/^>12/){$ok=1; print} elsif($ok){ last if(/^>/); print }' > softmasked.chr12.fa
 
-#### 1.2 Obtenci√≥n de evidencia transcripcional de bases de datos
+#### 1.2 ObtenciÛn de evidencia transcripcional de bases de datos
 
 En recursos como [RAP-DB](https://rapdb.dna.naro.go.jp/download/irgsp1.html) 
-puedes obtener secuencias de tr√°nscritos de arroz (CDS + UTRs + intrones) en formato FASTA. 
-Estas secuencias sirven de evidencia f√≠sica de regiones del genoma de arroz que se transcriben.
-Por comodidad puedes descargar los tr√°nscritos que se han adscrito al chr12 de arroz de 
+puedes obtener secuencias de tr·nscritos de arroz (CDS + UTRs + intrones) en formato FASTA. 
+Estas secuencias sirven de evidencia fÌsica de regiones del genoma de arroz que se transcriben.
+Por comodidad puedes descargar los tr·nscritos que se han adscrito al chr12 de arroz de 
 [data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz](./data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz).
 Esto puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el terminal:
 
     $ wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz
 
-#### 1.3 Obtenci√≥n de evidencia prote√≥mica de bases de datos
+#### 1.3 ObtenciÛn de evidencia proteÛmica de bases de datos
 
-Otra fuente de evidencia √∫til son las secuencias de amino√°cidos de prote√≠nas de arroz conocidas,
+Otra fuente de evidencia posible son las secuencias de amino·cidos de proteÌnas de arroz conocidas,
 que se guardan en un recurso central como es [UniProt](https://www.uniprot.org). 
 Ahora te pido que descargues las secuencias proteicas de arroz de
 [data/uniprot_sprot.Osativa.fasta.gz](./data/uniprot_sprot.Osativa.fasta.gz). De nuevo
@@ -93,25 +93,25 @@ puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el terminal:
 
     $ wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/uniprot_sprot.Osativa.fasta.gz
 
-#### 1.4 Anotaci√≥n basada en evidencia experimental
+#### 1.4 AnotaciÛn basada en evidencia experimental
 
 Con ayuda del software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0) 
 vamos a anotar el genoma que hemos descargado, en concreto su chr12. 
-`Anotar` significa averiguar en qu√© segmentos encontramos genes que codifican prote√≠s,
-asignando coordenadas gen√micas a los CDS, exones e intrones que los componen. 
-Antes debemos descomprimir los ficheros de secuencias con extensi√≥n `.gz`:
+`Anotar` significa averiguar en quÈ segmentos encontramos genes que codifican proteÌnas,
+asignando coordenadas genÛmicas a los CDS, exones e intrones que los componen. 
+Antes debemos descomprimir los ficheros de secuencias con extensiÛn `.gz`:
 
     $ gunzip IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz uniprot_sprot.Osativa.fasta.gz
 
     $ eviann.sh -t 2 -g softmasked.chr12.fa -e IRGSP-1.0_gene_2026-02-05.chr12.fasta -s uniprot_sprot.Osativa.fasta
 
-Como este paso llevar√° un rato lo mejor ser√° saltar de momento a la tarea 2.
+Como este paso llevar· un rato podemos saltar de momento a la tarea 2.
 
 #### 1.5 Comparemos las anotaciones entre genomas distintos
 
 Cuando haya terminado el paso anterior puedes revisar los resultados.
-Por ejemplo, el fichero `softmasked.chr12.fa.gff` deber√≠a ser similar al que tienes disponible en
-[data/softmasked.chr12.fa.gff.gz](./data/softmasked.chr12.fa.gff.gz), cuyas primeras l√≠neas son:
+Por ejemplo, el fichero `softmasked.chr12.fa.gff` deberÌa ser similar al que tienes disponible en
+[data/softmasked.chr12.fa.gff.gz](./data/softmasked.chr12.fa.gff.gz), cuyas primeras lÌneas son:
 
     12      EviAnn  gene    25909   37142   .       -       .       ID=LOC_00000264;geneID=LOC_00000264;gene_biotype=protein_coding
     12      EviAnn  mRNA    25909   37142   .       -       .       ID=LOC_00000264-mRNA-1;Parent=LOC_00000264;evidence_protein_id=sp|Q8GU83|AB41G_ORYSJ:ABC_transporter_G_family_member_41_OS_Oryza_sativa_subsp._japonica_OX_39947_GN_ABCG41_PE_3_SV_1;evidence_transcript_id=sp|Q8GU83|AB41G_ORYSJ:12:31525.5;start_codon=ATG;stop_codon=TAA;evidence=protein_only;num_exons=23;geneID=LOC_00000264;gene_biotype=protein_coding
@@ -129,7 +129,7 @@ Por ejemplo, el fichero `softmasked.chr12.fa.gff` deber√≠a ser similar al que ti
     ...
     12      EviAnn  gene    42617   45355   .       -       .       ID=LOC_00000265;geneID=LOC_00000265;gene_biotype=protein_coding
 
-Podemos revisar y contar algunos tipos de genes con m√°s *one-liners*, como por ejemplo `transporter`, `Disease_resistnce` o `transcription_factor`:
+Podemos revisar y contar algunos tipos de genes con *one-liners*, como por ejemplo `transporter`, `Disease_resistance` o `transcription_factor`:
 
     $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | wc -l
     $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | grep -c transporter
@@ -137,20 +137,20 @@ Podemos revisar y contar algunos tipos de genes con m√°s *one-liners*, como por 
 Para comparar tus resultados puedes ponerlos en esta
 [hoja compartida](https://docs.google.com/spreadsheets/d/1zuwY2Z-IPiIEP3OSQg4bIAhdJzjAQsubnKdJdCSJjaQ/edit?usp=sharing).
 	
-### 2. An√°lisis de pangenes en variedades de[ cebada Web]
+### 2. An·lisis de pangenes en variedades de cebada [Web]
 
-En esta tarea usaremos una aplicaci√≥n Web para mapear secuencias de cebada.
+En esta tarea usaremos una aplicaciÛn Web para mapear secuencias de cebada.
 En vez de localizar estas secuencias sobre un genoma de referencia representativo de la especie, MorexV3 en este caso,
-vamos a localizarlas sobre un pangenoma modelado como grafo.
-Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v1) en su modo de an√°lisis de grafos.
+vamos a localizarlas sobre un pangenoma modelado como un grafo.
+Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v1) en su modo de an·lisis de grafos.
 
-#### 2.1 Selecci√≥n y copia de una o m√°s secuencias en formato FASTA 
+#### 2.1 Selecciona y copia una o m·s secuencias en formato FASTA 
 
 #### 2.2 Mapea las secuencias en https://barleymap.eead.csic.es/barleymap/graph/ contra el grafo `Pan20-mmap-pro`
 
 #### 2.3 Compara tus resultados con los compa√±eros
 
-En cu√°ntos genomas las encuentras, en qu√© cromosomas, en qu√© orientaci√≥n?
+En cu·ntos genomas las encuentras, en quÈ cromosomas, en quÈ orientaciÛn?
 
 Para comparar tus resultados puedes ponerlos en esta
 [hoja compartida](https://docs.google.com/spreadsheets/d/1zuwY2Z-IPiIEP3OSQg4bIAhdJzjAQsubnKdJdCSJjaQ/edit?gid=764818922#gid=764818922).
