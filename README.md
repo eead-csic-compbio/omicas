@@ -51,7 +51,7 @@ Para ejecutar las siguientes operaciones tendrás que abrir un terminal:
 
 ### 1. Anotación de genes en múltiples genomas de la misma especie [terminal]
 
-#### 1.1 Selección y descarga de un genoma de arroz en formato FASTA (*soft-masked*)
+#### 1.1 Selección y descarga de un genoma de arroz en formato FASTA (*soft-masked*, secuencias repetidas en minúscula)
 
 | grupo | URL de Ensembl |
 |-----|------|
@@ -146,9 +146,12 @@ Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v
 
 #### 2.1 Selecciona y copia una o más secuencias en formato FASTA 
 
+Sugiero probar con algunas secuencias de cDNAs de genes de control de la 
+[floración](./data/flowering_genes.MorexV3.cdna.fna), entre corchetes el nombre de la variedad de cebada correspondiente.
+
 #### 2.2 Mapea las secuencias en https://barleymap.eead.csic.es/barleymap/graph/ contra el grafo `Pan20-mmap-pro`
 
-#### 2.3 Compara tus resultados con los compaÃ±eros
+#### 2.3 Compara tus resultados
 
 En cuántos genomas las encuentras, en qué cromosomas, en qué orientación?
 
