@@ -79,19 +79,26 @@ puedes obtener secuencias de tránscritos de arroz (CDS + UTRs + intrones) en fo
 Estas secuencias sirven de evidencia física de regiones del genoma de arroz que se transcriben.
 Por comodidad puedes descargar los tránscritos que se han adscrito al chr12 de arroz de 
 [data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz](./data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz).
+Esto puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el terminal:
+
+    $ wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz
 
 #### 1.3 Obtención de evidencia proteómica de bases de datos
 
 Otra fuente de evidencia útil son las secuencias de aminoácidos de proteínas de arroz conocidas,
 que se guardan en un recurso central como es [UniProt](https://www.uniprot.org). 
 Ahora te pido que descargues las secuencias proteicas de arroz de
-[data/uniprot_sprot.Osativa.fasta.gz](./data/uniprot_sprot.Osativa.fasta.gz).
+[data/uniprot_sprot.Osativa.fasta.gz](./data/uniprot_sprot.Osativa.fasta.gz). De nuevo
+puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el terminal:
+
+    $ wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/uniprot_sprot.Osativa.fasta.gz
 
 #### 1.4 Anotación basada en evidencia experimental
 
 Con ayuda del software [EviAnn](https://www.nature.com/articles/s41592-026-03156-0) 
-en este paso vamos a anotar el genoma que hemos descargado, o su chr12, es decir,
-vamos a averiguar en qué segmentos encontramos genes que codifican proteínas. 
+vamos a anotar el genoma que hemos descargado, en concreto su chr12. 
+`Anotar` significa averiguar en qué segmentos encontramos genes que codifican proteís,
+asignando coordenadas gen�micas a los CDS, exones e intrones que los componen. 
 Antes debemos descomprimir los ficheros de secuencias con extensión `.gz`:
 
     $ gunzip IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz uniprot_sprot.Osativa.fasta.gz
@@ -122,12 +129,15 @@ Por ejemplo, el fichero `softmasked.chr12.fa.gff` debería ser similar al que ti
     ...
     12      EviAnn  gene    42617   45355   .       -       .       ID=LOC_00000265;geneID=LOC_00000265;gene_biotype=protein_coding
 
-Podemos revisar y contar algunos tipos de genes con más *one-liners*, como por ejemplo `transporter`, `Disease_resistance` o `transcription_factor`:
+Podemos revisar y contar algunos tipos de genes con más *one-liners*, como por ejemplo `transporter`, `Disease_resistnce` o `transcription_factor`:
 
-    $ grep transporter softmasked.chr12.fa.gff
-    $ grep -c grep transporter softmasked.chr12.fa.gff
+    $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | wc -l
+    $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | grep -c transporter
+
+Para comparar tus resultados puedes ponerlos en esta
+[hoja compartida](https://docs.google.com/spreadsheets/d/1zuwY2Z-IPiIEP3OSQg4bIAhdJzjAQsubnKdJdCSJjaQ/edit?usp=sharing).
 	
-### 2. Análisis de pangenes en variedades de cebada [Web]
+### 2. Análisis de pangenes en variedades de[ cebada Web]
 
 En esta tarea usaremos una aplicación Web para mapear secuencias de cebada.
 En vez de localizar estas secuencias sobre un genoma de referencia representativo de la especie, MorexV3 en este caso,
@@ -141,5 +151,8 @@ Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v
 #### 2.3 Compara tus resultados con los compañeros
 
 En cuántos genomas las encuentras, en qué cromosomas, en qué orientación?
+
+Para comparar tus resultados puedes ponerlos en esta
+[hoja compartida](https://docs.google.com/spreadsheets/d/1zuwY2Z-IPiIEP3OSQg4bIAhdJzjAQsubnKdJdCSJjaQ/edit?gid=764818922#gid=764818922).
 
 
