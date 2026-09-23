@@ -85,6 +85,7 @@ Esto puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el term
 
 #### 1.3 Obtención de evidencia proteómica de bases de datos
 
+
 Otra fuente de evidencia posible son las secuencias de aminoácidos de proteínas de arroz conocidas,
 que se guardan en un recurso central como es [UniProt](https://www.uniprot.org). 
 Ahora te pido que descargues las secuencias proteicas de arroz de
@@ -103,9 +104,8 @@ Antes debemos descomprimir los ficheros de secuencias con extensión `.gz`:
 
     $ gunzip IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz uniprot_sprot.Osativa.fasta.gz
 
+    # -t 2 podrías aumentarlo a -t 4 o -t 8 si tienes una CPU con muchos hilos
     $ eviann.sh -t 2 -g softmasked.chr12.fa -e IRGSP-1.0_gene_2026-02-05.chr12.fasta -s uniprot_sprot.Osativa.fasta
-
-Como este paso llevará un rato podemos saltar de momento a la tarea 2.
 
 #### 1.5 Comparemos las anotaciones entre genomas distintos
 
@@ -129,13 +129,15 @@ Por ejemplo, el fichero `softmasked.chr12.fa.gff` debería ser similar al que tie
     ...
     12      EviAnn  gene    42617   45355   .       -       .       ID=LOC_00000265;geneID=LOC_00000265;gene_biotype=protein_coding
 
-Podemos revisar y contar algunos tipos de genes con *one-liners*, como por ejemplo `transporter`, `Disease_resistance` o `transcription_factor`:
+Podemos revisar y contar algunos tipos de genes o transcritos con *one-liners*, como por ejemplo `transporter`, `Disease_resistance` o `transcription_factor`:
 
     $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | wc -l
-    $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | grep -c transporter
+    $ perl -lane 'print if($F[2] eq "mRNA")' softmasked.chr12.fa.gff | grep -c transporter
 
+<!--
 Para comparar tus resultados puedes ponerlos en esta
 [hoja compartida](https://docs.google.com/spreadsheets/d/1zuwY2Z-IPiIEP3OSQg4bIAhdJzjAQsubnKdJdCSJjaQ/edit?usp=sharing).
+-->
 	
 ### 2. Análisis de pangenes en variedades de cebada [Web]
 
@@ -155,7 +157,8 @@ Sugiero probar con algunas secuencias de cDNAs de genes de control de la
 
 En cuántos genomas las encuentras, en qué cromosomas, en qué orientación?
 
+<!--
 Para comparar tus resultados puedes ponerlos en esta
 [hoja compartida](https://docs.google.com/spreadsheets/d/1zuwY2Z-IPiIEP3OSQg4bIAhdJzjAQsubnKdJdCSJjaQ/edit?gid=764818922#gid=764818922).
-
+-->
 
