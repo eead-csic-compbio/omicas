@@ -70,7 +70,7 @@ Para ejecutar las siguientes operaciones tendrás que abrir un terminal:
 Para hacer la práctica en un PC limitado podemos por ejemplo quedarnos solamente con el cromosoma 12 con ayuda de un 
 [one-liner](https://github.com/eead-csic-compbio/scripting_linux_shell/blob/master/session4.md):
 
-    $ zcat softmasked.fa.gz | perl -lne 'if(/^>12/){$ok=1; print} elsif($ok){ last if(/^>/); print }' > softmasked.chr12.fa
+    zcat softmasked.fa.gz | perl -lne 'if(/^>12/){$ok=1; print} elsif($ok){ last if(/^>/); print }' > softmasked.chr12.fa
 
 #### 1.2 Obtención de evidencia transcripcional de bases de datos
 
@@ -81,7 +81,7 @@ Por comodidad puedes descargar los tránscritos que se han adscrito al chr12 de a
 [data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz](./data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz).
 Esto puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el terminal:
 
-    $ wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz
+    wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz
 
 #### 1.3 Obtención de evidencia proteómica de bases de datos
 
@@ -92,7 +92,7 @@ Ahora te pido que descargues las secuencias proteicas de arroz de
 [data/uniprot_sprot.Osativa.fasta.gz](./data/uniprot_sprot.Osativa.fasta.gz). De nuevo
 puedes hacerlo desde tu navegador, descargando el fichero RAW, o en el terminal:
 
-    $ wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/uniprot_sprot.Osativa.fasta.gz
+    wget https://github.com/eead-csic-compbio/omicas/raw/refs/heads/main/data/uniprot_sprot.Osativa.fasta.gz
 
 #### 1.4 Anotación basada en evidencia experimental
 
@@ -102,10 +102,10 @@ vamos a anotar el genoma que hemos descargado, en concreto su chr12.
 asignando coordenadas genómicas a los CDS, exones e intrones que los componen. 
 Antes debemos descomprimir los ficheros de secuencias con extensión `.gz`:
 
-    $ gunzip IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz uniprot_sprot.Osativa.fasta.gz
+    gunzip IRGSP-1.0_gene_2026-02-05.chr12.fasta.gz uniprot_sprot.Osativa.fasta.gz
 
     # -t 2 podrías aumentarlo a -t 4 o -t 8 si tienes una CPU con muchos hilos
-    $ eviann.sh -t 2 -g softmasked.chr12.fa -e IRGSP-1.0_gene_2026-02-05.chr12.fasta -s uniprot_sprot.Osativa.fasta
+    eviann.sh -t 2 -g softmasked.chr12.fa -e IRGSP-1.0_gene_2026-02-05.chr12.fasta -s uniprot_sprot.Osativa.fasta
 
 #### 1.5 Comparemos las anotaciones entre genomas distintos
 
@@ -131,8 +131,8 @@ Por ejemplo, el fichero `softmasked.chr12.fa.gff` debería ser similar al que tie
 
 Podemos revisar y contar algunos tipos de genes o transcritos con *one-liners*, como por ejemplo `transporter`, `Disease_resistance` o `transcription_factor`:
 
-    $ perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | wc -l
-    $ perl -lane 'print if($F[2] eq "mRNA")' softmasked.chr12.fa.gff | grep -c transporter
+    perl -lane 'print if($F[2] eq "gene")' softmasked.chr12.fa.gff | wc -l
+    perl -lane 'print if($F[2] eq "mRNA")' softmasked.chr12.fa.gff | grep -c transporter
 
 <!--
 Para comparar tus resultados puedes ponerlos en esta
