@@ -139,7 +139,7 @@ Para comparar tus resultados puedes ponerlos en esta
 	
 ### 2. Análisis de pangenes en variedades de cebada [Web]
 
-En esta tarea usaremos una aplicación Web para mapear secuencias de cebada.
+En esta tarea usaremos una aplicación Web para mapear secuencias de [pangenes](https://doi.org/10.1186/s13059-023-03071-z) de cebada.
 En vez de localizar estas secuencias sobre un genoma de referencia representativo de la especie, MorexV3 en este caso,
 vamos a localizarlas sobre un pangenoma modelado como un grafo.
 Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v1) en su modo de análisis de grafos.
@@ -147,7 +147,7 @@ Usaremos [BARLEYMAP](https://www.biorxiv.org/content/10.64898/2026.08.06.741139v
 #### 2.1 Selecciona y copia una o más secuencias en formato FASTA 
 
 Sugiero probar con algunas secuencias de cDNAs de genes de control de la 
-[floración](./data/flowering_genes.MorexV3.cdna.fna), entre corchetes el nombre de la variedad de cebada correspondiente.
+[floración](./data/flowering_genes.MorexV3.cdna.fna), todas ellas de la variedad de cebada Morex.
 
 #### 2.2 Mapea las secuencias en https://barleymap.eead.csic.es/barleymap/graph/ contra el grafo `Pan20-mmap-pro`
 
