@@ -1,4 +1,4 @@
-## Tecnolog铆as 贸micas: Gen贸mica y aplicaciones de la Pangen贸mica de Plantas
+## Tecnolog韆s 觤icas: Gen髆ica y aplicaciones de la Pangen贸mica de Plantas
 
 Sesi贸n pr谩ctica de 2h dentro del 
 [M谩ster en Biolog铆a Molecular y Celular](https://estudios.unizar.es) de la Universidad de Zaragoza.
